@@ -14,6 +14,5 @@
         public TimeOnly horarioInicio { get; set; }
         public TimeOnly horarioFin { get; set; }
         public bool estado { get; set; }
-
     }
 }
