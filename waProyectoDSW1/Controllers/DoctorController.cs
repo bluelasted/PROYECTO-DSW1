@@ -35,7 +35,7 @@ namespace waProyectoDSW1.Controllers
                     direccion = dr[5].ToString(),
                     fk_especialidad = int.Parse(dr[6].ToString()),
                     especialidad = dr[7].ToString(),
-                    horarioInicio = TimeOnly.Parse(dr[8].ToString()),
+                    horarioInicio = TimeOnly.Parse(dr[8].ToString()), 
                     horarioFin = TimeOnly.Parse(dr[9].ToString())
                 });
             }
