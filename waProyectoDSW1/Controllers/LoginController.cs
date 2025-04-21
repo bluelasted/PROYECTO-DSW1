@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using waProyectoDSW1.Helpers;
 using waProyectoDSW1.Interfaces;
 using waProyectoDSW1.Models;
 using waProyectoDSW1.Repositories;
@@ -31,6 +32,7 @@ namespace waProyectoDSW1.Controllers
                 HttpContext.Session.SetString("usuario", usuario.nombreUsuario);
                 HttpContext.Session.SetString("rol", usuario.rol);
 
+                SessionHelper.SetUser(HttpContext.Session, usuario);
                 return RedirectToAction("Index", "Home");
             }
             else

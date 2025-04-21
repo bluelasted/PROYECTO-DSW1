@@ -9,7 +9,7 @@
         public string password { get; set; }
         public string email { get; set; }
         public string rol { get; set; }
-        public int fk_doctor { get; set; }
+        public int? fk_doctor { get; set; }
         public bool estado { get; set; }
     }
 }

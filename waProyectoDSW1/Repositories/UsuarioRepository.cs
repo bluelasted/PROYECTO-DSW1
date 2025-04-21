@@ -37,8 +37,12 @@ namespace waProyectoDSW1.Repositories
                                 var model = new UsuarioModel
                                 {
                                     pk_usuario = Convert.ToInt32(reader["pk_usuario"]),
+                                    nombre = reader["nombre"].ToString(),
+                                    apellido = reader["apellido"].ToString(),
                                     nombreUsuario = reader["nombreUsuario"].ToString(),
+                                    email = reader["email"].ToString(),
                                     rol = reader["rol"].ToString(),
+                                    fk_doctor = reader.IsDBNull(reader.GetOrdinal("fk_doctor")) ? (int?)null : reader.GetInt32(reader.GetOrdinal("fk_doctor")),
                                     estado = Convert.ToBoolean(reader["estado"])
                                 };
 

@@ -1,15 +1,19 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using waProyectoDSW1.Interfaces;
+using waProyectoDSW1.Repositories;
 
 namespace waProyectoDSW1.Controllers
 {
     public class MenuController : Controller
     {
-        public readonly IConfiguration configuration;
+        private readonly IUsuario _usuarioRepo;
 
-        public MenuController(IConfiguration config)
+        public LoginController()
         {
-            this.configuration = config;
+            _usuarioRepo = new UsuarioRepository();
         }
+
+
 
     }
 }

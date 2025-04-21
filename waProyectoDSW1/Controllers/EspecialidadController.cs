@@ -14,7 +14,7 @@ namespace waProyectoDSW1.Controllers
             this.configuration = config;
         }
 
-        public IEnumerable<EspecialidadModel> LISTADO_ESPECIALIDAD()
+        public IEnumerable<EspecialidadModel> ListadoEspecialidad()
         {
             List<EspecialidadModel> lista = new List<EspecialidadModel>();
             SqlConnection cn = new SqlConnection(configuration["ConnectionStrings:cn"]);
@@ -22,15 +22,15 @@ namespace waProyectoDSW1.Controllers
             cmd.CommandType = CommandType.StoredProcedure;
 
             cn.Open();
-            SqlDataReader dr = cmd.ExecuteReader();
-            while (dr.Read())
+            SqlDataReader reader = cmd.ExecuteReader();
+            while (reader.Read())
             {
                 lista.Add(new EspecialidadModel()
                 {
-                    pk_especialidad = int.Parse(dr[0].ToString()),
-                    nombre = dr[1].ToString(),
-                    descripcion = dr[2].ToString(),
-                    estado = bool.Parse(dr[3].ToString()),
+                    pk_especialidad = Convert.ToInt32(reader["pk_especialidad"]),
+                    nombre = reader["nombre"].ToString(),
+                    descripcion = reader["descripcion"].ToString(),
+                    estado = bool.Parse(reader["estado"].ToString()),
                 });
             }
 
@@ -40,8 +40,8 @@ namespace waProyectoDSW1.Controllers
 
         public IActionResult Index()
         {   
-            var Especialidad = LISTADO_ESPECIALIDAD();
-            return View(LISTADO_ESPECIALIDAD());
+            var Especialidad = ListadoEspecialidad();
+            return View(ListadoEspecialidad());
         }
     }
 }
