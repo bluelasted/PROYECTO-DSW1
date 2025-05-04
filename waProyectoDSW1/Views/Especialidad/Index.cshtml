@@ -5,50 +5,73 @@
     Layout = "~/Views/Shared/_LayoutPrincipal.cshtml";
 }
 
-<h1>Index</h1>
+<!-- Page Heading -->
+<h1 class="h3 mb-2 text-gray-800">Especialidad / @ViewData["Title"]</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.pk_especialidad)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.nombre)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.descripcion)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.estado)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.pk_especialidad)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.nombre)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.descripcion)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.estado)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<!-- DataTales Example -->
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Listado de Especialidades</h6>
+    </div>
+    <div class="card-body">
+
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Código</th>
+                        <th>Nombre</th>
+                        <th>Descripción</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.pk_especialidad</td>
+                            <td>@item.nombre
+                            <td>@item.descripcion</td>
+                            <td>
+                                <button class="btn-editar btn btn-primary" data-id="@item.pk_especialidad" type="button">
+                                    <i class="fas fa-pen"></i>
+                                </button>
+                                <button class="btn-borrar btn btn-danger" data-id="@item.pk_especialidad" type="button">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div id="modalContainer"></div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+
+        $('.btn-editar').click(function () {
+            var pk_doctor = $(this).data('id');
+
+            $.ajax({
+                url: '/Especialidad/EspecialidadMant',
+                type: 'GET',
+                data: { pk_doctor: pk_doctor },
+                success: function (html) {
+                    $('#modalContainer').html(html);
+                    $('#especialidadModal').modal('show');
+                },
+                error: function () {
+                    alert('No se pudo cargar el formulario de la especialidad.');
+                }
+            });
+        });
+    });
+</script>

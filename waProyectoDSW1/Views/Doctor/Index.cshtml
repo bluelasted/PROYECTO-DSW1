@@ -5,86 +5,86 @@
     Layout = "~/Views/Shared/_LayoutPrincipal.cshtml";
 }
 
-<h1>Index</h1>
+<!-- Page Heading -->
+<h1 class="h3 mb-2 text-gray-800">Doctor / @ViewData["Title"]</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.pk_doctor)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.nombres)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.apellidos)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.dni)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.telefono)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.email)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.direccion)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.fk_especialidad)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.especialidad)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.estado)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.pk_doctor)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.nombres)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.apellidos)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.dni)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.telefono)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.direccion)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.fk_especialidad)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.especialidad)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.estado)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-            </td>
-        </tr>
+<!-- DataTales Example -->
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Listado de Doctores</h6>
+    </div>
+    <div class="card-body">
+
+        <form id="filtroFechasForm" class="row mb-3">
+            <div class="col-md-3">
+                <label for="fechaDesde" class="form-label">Desde:</label>
+                <input type="date" class="form-control" id="fechaDesde" name="fechaDesde" />
+            </div>
+            <div class="col-md-3">
+                <label for="fechaHasta" class="form-label">Hasta:</label>
+                <input type="date" class="form-control" id="fechaHasta" name="fechaHasta" />
+            </div>
+            <div class="col-md-3">
+                <label for="especialidad" class="form-label">Especialidades:</label>
+                @Html.DropDownList("especialidad", ViewBag.Especialidades as SelectList, "Seleccione", new { @class = "form-control", @required = "required" })
+            </div>
+            <div class="col-md-3 align-self-end">
+                <button type="submit" class="btn btn-primary">Filtrar</button>
+                <button type="button" id="limpiarFiltro" class="btn btn-secondary">Limpiar</button>
+            </div>
+        </form>
+
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Código</th>
+                        <th>Nombre completo</th>
+                        <th>DNI</th>
+                        <th>Teléfono</th>
+                        <th>Email</th>
+                        <th>Especialidad</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.pk_doctor</td>
+                            <td>@item.nombres @item.apellidos</td>
+                            <td>@item.dni</td>
+                            <td>@item.telefono</td>
+                            <td>@item.email</td>
+                            <td>@item.especialidad</td>
+                            <td>
+                                <button class="btn-editar btn btn-primary" data-id="@item.pk_doctor" type="button">
+                                    <i class="fas fa-pen"></i> 
+                                </button>
+                                <button class="btn-borrar btn btn-danger" data-id="@item.pk_doctor" type="button">
+                                    <i class="fas fa-trash"></i> 
+                                </button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div id="modalContainer"></div>
+
+@section scripts {
+    <!-- Scripts Base -->
+    <script src="~/vendor/jquery/jquery.min.js"></script>
+    <script src="~/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/vendor/jquery-easing/jquery.easing.min.js"></script>    
+    <script src="~/vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+    <script src="~/js/demo/datatables-demo.js"></script>
+
+    <!-- Scripts Nuevos -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="~/js/page/page_Doctor.js"></script>
 }
-    </tbody>
-</table>

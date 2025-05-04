@@ -1,4 +1,7 @@
-﻿namespace waProyectoDSW1.Models
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+
+namespace waProyectoDSW1.Models
 {
     public class DoctorModel
     {
@@ -11,8 +14,8 @@
         public string direccion { get; set; }
         public int fk_especialidad { get; set; }
         public string especialidad { get; set; }
-        public TimeOnly horarioInicio { get; set; }
-        public TimeOnly horarioFin { get; set; }
+        public TimeSpan horarioInicio { get; set; }
+        public TimeSpan horarioFin { get; set; }
         public bool estado { get; set; }
     }
 }
