@@ -1,4 +1,4 @@
-﻿@model IEnumerable<waProyectoDSW1.Models.EspecialidadModel>
+﻿@model IEnumerable<waProyectoDSW1.Models.PacienteModel>
 
 @{
     ViewData["Title"] = "Index";
@@ -6,24 +6,31 @@
 }
 
 <!-- Page Heading -->
-<h1 class="h3 mb-2 text-gray-800">Especialidad / @ViewData["Title"]</h1>
+<h1 class="h3 mb-2 text-gray-800">Paciente / @ViewData["Title"]</h1>
 
 <!-- DataTales Example -->
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">Listado de Especialidades</h6>
+        <h6 class="m-0 font-weight-bold text-primary">Listado de Pacientes</h6>
     </div>
     <div class="card-body">
 
-        <button type="button" class="btn btn-outline-primary" id="btnNuevaEspecialidad"><i class="fas fa-plus"></i> Nueva Especialidad</button>
+        <button type="button" class="btn btn-outline-primary" id="btnNuevoPaciente"><i class="fas fa-plus"></i> Nuevo Paciente</button>
 
         <div class="table-responsive">
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                     <tr>
                         <th>Código</th>
-                        <th>Nombre</th>
-                        <th>Descripción</th>
+                        <th>Nombre completo</th>
+                        <th>DNI</th>
+                        <th>Teléfono</th>
+                        <th>Email</th>
+                        <th>Dirección</th>
+                        <th>Fecha Nacimiento</th>
+                        <th>Género</th>
+                        <th>Alergias</th>
+                        <th>Fec. Ult. Visita</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
@@ -31,14 +38,21 @@
                     @foreach (var item in Model)
                     {
                         <tr>
-                            <td>@item.pk_especialidad</td>
-                            <td>@item.nombre
-                            <td>@item.descripcion</td>
+                            <td>@item.pk_paciente</td>
+                            <td>@item.nombres @item.apellidos</td>
+                            <td>@item.cedula</td>
+                            <td>@item.telefono</td>
+                            <td>@item.email</td>
+                            <td>@item.direccion</td>
+                            <td>@item.fechaNacimiento</td>
+                            <td>@item.genero</td>
+                            <td>@item.alergias</td>
+                            <td>@item.fechaUltimaVisita</td>
                             <td>
-                                <button class="btn-editar btn btn-primary btn-editar" data-id="@item.pk_especialidad" type="button">
+                                <button class="btn-editar btn btn-primary" data-id="@item.pk_paciente" type="button">
                                     <i class="fas fa-pen"></i>
                                 </button>
-                                <button class="btn-borrar btn btn-danger btn-borrar" data-id="@item.pk_especialidad" type="button">
+                                <button class="btn-borrar btn btn-danger" data-id="@item.pk_paciente" type="button">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </td>
@@ -63,5 +77,5 @@
 
     <!-- Scripts Nuevos -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="~/js/page/page_Especialidad.js"></script>
+    <script src="~/js/page/page_Paciente.js"></script>
 }

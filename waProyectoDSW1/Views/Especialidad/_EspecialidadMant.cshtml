@@ -1,0 +1,43 @@
+﻿@model waProyectoDSW1.Models.EspecialidadModel
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" />
+
+<!-- Modal -->
+<div class="modal fade" id="especialidadModal" tabindex="-1" aria-labelledby="especialidadModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <form id="especialidadForm" action="@Url.Action("Mantenimiento", "Especialidad")" method="post">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="especialidadModalLabel">Mantenimiento de Especialidad</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+
+                <div class="modal-body">
+                    @Html.HiddenFor(m => m.pk_especialidad)
+
+                    <div class="row g-3">
+                        <div class="col-md-12">
+                            <label for="descripcion" class="form-label">Nombre</label>
+                            @Html.TextBoxFor(m => m.nombre, new { @class = "form-control", @required = "required" })
+                        </div>
+                    </div>
+
+                    <div class="row g-3">
+                        <div class="col-md-12">
+                            <label for="descripcion" class="form-label">Descripción</label>
+                            @Html.TextBoxFor(m => m.descripcion, new { @class = "form-control", @required = "required" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary btn-guardar">Guardar</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+<script src="~/js/page/page_Especialidad_Mant.js"></script>

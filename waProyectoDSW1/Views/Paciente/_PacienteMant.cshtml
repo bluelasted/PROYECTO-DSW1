@@ -1,0 +1,81 @@
+﻿@model waProyectoDSW1.Models.PacienteModel
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" />
+
+<!-- Modal -->
+<div class="modal fade" id="pacienteModal" tabindex="-1" aria-labelledby="pacienteModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <form id="pacienteForm" action="@Url.Action("Mantenimiento", "Paciente")" method="post">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="pacienteModalLabel">Mantenimiento de Paciente</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+
+                <div class="modal-body">
+                    @Html.HiddenFor(m => m.pk_paciente)
+
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label for="dni" class="form-label">DNI</label>
+                            @Html.TextBoxFor(m => m.cedula, new { @class = "form-control", @required = "required" })
+                        </div>
+
+                        <div class="col-md-6">
+                            <label for="nombres" class="form-label">Nombres</label>
+                            @Html.TextBoxFor(m => m.nombres, new { @class = "form-control", @required = "required" })
+                        </div>
+
+                        <div class="col-md-6">
+                            <label for="apellidos" class="form-label">Apellidos</label>
+                            @Html.TextBoxFor(m => m.apellidos, new { @class = "form-control", @required = "required" })
+                        </div>
+
+                        <div class="col-md-6">
+                            <label for="telefono" class="form-label">Teléfono</label>
+                            @Html.TextBoxFor(m => m.telefono, new { @class = "form-control" })
+                        </div>
+
+                        <div class="col-md-6">
+                            <label for="email" class="form-label">Email</label>
+                            @Html.TextBoxFor(m => m.email, new { @type = "email", @class = "form-control" })
+                        </div>
+
+                        <div class="col-md-12">
+                            <label for="direccion" class="form-label">Dirección</label>
+                            @Html.TextBoxFor(m => m.direccion, new { @class = "form-control" })
+                        </div>
+
+                        <div class="col-md-6">
+                            <label for="fechaNacimiento" class="form-label">Fecha Nacimiento</label>
+                            @Html.TextBoxFor(m => m.fechaNacimiento, new { @class = "form-control" })
+                        </div>
+
+                        <div class="col-md-6">
+                            <label for="fechaUltimaVisita" class="form-label">Fecha Ultima Visita</label>
+                            @Html.TextBoxFor(m => m.fechaUltimaVisita, new { @class = "form-control" })
+                        </div>
+
+                        <div class="col-md-3">
+                            <label for="genero" class="form-label">Género</label>
+                            @Html.TextBoxFor(m => m.genero, new { @class = "form-control" })
+                        </div>
+
+                        <div class="col-md-9">
+                            <label for="alergias" class="form-label">Alergias</label>
+                            @Html.TextBoxFor(m => m.alergias, new { @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary btn-guardar">Guardar</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+<script src="~/js/page/page_Paciente_Mant.js"></script>

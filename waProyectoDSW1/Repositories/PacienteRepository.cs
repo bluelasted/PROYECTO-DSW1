@@ -2,6 +2,7 @@
 using System.Data;
 using waProyectoDSW1.Interfaces;
 using waProyectoDSW1.Models;
+using System.Reflection;
 
 namespace waProyectoDSW1.Repositories
 {
@@ -103,7 +104,6 @@ namespace waProyectoDSW1.Repositories
                                     model.fechaNacimiento = (DateTime)reader["fechaNacimiento"];
                                     model.genero = reader["genero"].ToString();
                                     model.alergias = reader["alergias"].ToString();
-                                    model.fechaRegistro = (DateTime)reader["fechaRegistro"];
                                     model.fechaUltimaVisita = (DateTime)reader["fechaUltimaVisita"];
                                 };
 
@@ -126,9 +126,46 @@ namespace waProyectoDSW1.Repositories
             return result;
         }
 
-        public ResultModel<object> Paciente_Mant()
+        public ResultModel<object> Paciente_Mant(PacienteModel model, int op)
         {
-            throw new NotImplementedException();
+            var result = new ResultModel<object>();
+
+            try
+            {
+                using (SqlConnection cn = new SqlConnection(connectionString))
+                {
+                    cn.Open();
+                    using (SqlCommand cmd = new SqlCommand("SP_PACIENTE_MANT", cn))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+
+                        cmd.Parameters.AddWithValue("@op", op);
+                        cmd.Parameters.AddWithValue("@pk_paciente", model.pk_paciente);
+                        cmd.Parameters.AddWithValue("@nombres", model.nombres);
+                        cmd.Parameters.AddWithValue("@apellidos", model.apellidos);
+                        cmd.Parameters.AddWithValue("@cedula", model.cedula);
+                        cmd.Parameters.AddWithValue("@telefono", model.telefono);
+                        cmd.Parameters.AddWithValue("@email", model.email);
+                        cmd.Parameters.AddWithValue("@direccion", model.direccion);
+                        cmd.Parameters.AddWithValue("@fechaNacimiento", model.fechaNacimiento);
+                        cmd.Parameters.AddWithValue("@genero", model.genero);
+                        cmd.Parameters.AddWithValue("@alergias", model.alergias);
+                        cmd.Parameters.AddWithValue("@fechaUltimaVisita", model.fechaUltimaVisita);
+
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+
+                result.success = true;
+                result.Message = "Operación realizada correctamente.";
+            }
+            catch (Exception ex)
+            {
+                result.success = false;
+                result.Message = "Error: " + ex.Message;
+            }
+
+            return result;
         }
     }
 }
