@@ -15,6 +15,8 @@
     </div>
     <div class="card-body">
 
+        <button type="button" class="btn btn-outline-primary" id="btnNuevoDoctor"><i class="fas fa-plus"></i> Nuevo Doctor</button>
+
         <form id="filtroFechasForm" class="row mb-3">
             <div class="col-md-3">
                 <label for="fechaDesde" class="form-label">Desde:</label>
@@ -59,10 +61,10 @@
                             <td>@item.especialidad</td>
                             <td>
                                 <button class="btn-editar btn btn-primary" data-id="@item.pk_doctor" type="button">
-                                    <i class="fas fa-pen"></i> 
+                                    <i class="fas fa-pen"></i>
                                 </button>
                                 <button class="btn-borrar btn btn-danger" data-id="@item.pk_doctor" type="button">
-                                    <i class="fas fa-trash"></i> 
+                                    <i class="fas fa-trash"></i>
                                 </button>
                             </td>
                         </tr>
@@ -79,7 +81,7 @@
     <!-- Scripts Base -->
     <script src="~/vendor/jquery/jquery.min.js"></script>
     <script src="~/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="~/vendor/jquery-easing/jquery.easing.min.js"></script>    
+    <script src="~/vendor/jquery-easing/jquery.easing.min.js"></script>
     <script src="~/vendor/datatables/jquery.dataTables.min.js"></script>
     <script src="~/vendor/datatables/dataTables.bootstrap4.min.js"></script>
     <script src="~/js/demo/datatables-demo.js"></script>

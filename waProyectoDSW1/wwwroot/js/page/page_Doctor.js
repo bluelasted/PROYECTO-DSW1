@@ -1,4 +1,24 @@
 ﻿$(document).ready(function () {
+
+    $('#btnNuevoDoctor').click(function () {
+        $.ajax({
+            url: '/Doctor/DoctorMant',
+            type: 'GET',
+            data: { pk_doctor: 0 },
+            success: function (html) {
+                $('#modalContainer').html(html);
+                $('#doctorModal').modal('show');
+            },
+            error: function () {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'No se pudo cargar el formulario del doctor.',
+                });
+            }
+        });
+    });
+
     $('.btn-editar').click(function () {
         var pk_doctor = $(this).data('id');
 
@@ -34,18 +54,21 @@
             cancelButtonText: 'Cancelar',
         }).then((result) => {
             if (result.isConfirmed) {
-                // Aquí realizas la acción de borrar con AJAX
                 $.ajax({
-                    url: '/Doctor/EliminarDoctor',
+                    url: '/Doctor/Mantenimiento',
                     type: 'POST',
-                    data: { pk_doctor: pk_doctor },
+                    data: {
+                        pk_doctor: pk_doctor,
+                        op: 3
+                    },
                     success: function () {
-                        Swal.fire(
-                            '¡Eliminado!',
-                            'El doctor ha sido eliminado.',
-                            'success'
-                        );
-                        location.reload(); // Recarga la página para reflejar los cambios
+                        Swal.fire({
+                            title: '¡Eliminado!',
+                            text: 'El doctor ha sido eliminado.',
+                            icon: 'success'
+                        }).then(() => {
+                            location.reload(); // Se recarga después de cerrar el Swal
+                        });
                     },
                     error: function () {
                         Swal.fire({
@@ -58,6 +81,7 @@
             }
         });
     });
+
 
     // Botón Limpiar
     $('#limpiarFiltro').click(function () {

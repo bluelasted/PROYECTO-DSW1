@@ -37,11 +37,14 @@ namespace waProyectoDSW1.Repositories
                                 var model = new DoctorModel
                                 {
                                     pk_doctor = Convert.ToInt32(reader["pk_doctor"]),
+                                    dni = reader["dni"].ToString(),
                                     nombres = reader["nombres"].ToString(),
                                     apellidos = reader["apellidos"].ToString(),
+                                    fk_especialidad = Convert.ToInt32(reader["fk_especialidad"]),
                                     especialidad = reader["nombre"].ToString(),
                                     telefono = reader["telefono"].ToString(),
                                     email = reader["email"].ToString(),
+                                    direccion = reader["direccion"].ToString(),
                                     horarioInicio = (TimeSpan)reader["horarioInicio"],
                                     horarioFin = (TimeSpan)reader["horarioFin"]
                                 };

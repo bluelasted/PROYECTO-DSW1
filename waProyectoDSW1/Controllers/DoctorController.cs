@@ -21,8 +21,22 @@ namespace waProyectoDSW1.Controllers
 
         public ResultModel<object> Mantenimiento(DoctorModel model, int op)
         {
-            var result = repository.Doctor_Mant(model, op);
-            return result;
+            ResultModel<object> result = null; 
+
+            if (model.pk_doctor == 0)
+            {
+                result = repository.Doctor_Mant(model, 1);
+            }
+            else if (model.pk_doctor > 0 && op != 3)
+            {
+                result = repository.Doctor_Mant(model, 2);
+            }
+            else
+            {
+                result = repository.Doctor_Mant(model, op);
+            }
+
+            return result; 
         }
 
         public IEnumerable<DoctorModel> ListadoDoctor()

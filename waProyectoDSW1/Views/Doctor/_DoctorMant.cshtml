@@ -1,54 +1,76 @@
-﻿<!-- Modal -->
+﻿@model waProyectoDSW1.Models.DoctorModel
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" />
+
+<!-- Modal -->
 <div class="modal fade" id="doctorModal" tabindex="-1" aria-labelledby="doctorModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <form id="doctorForm">
+    <div class="modal-dialog modal-lg">
+        <form id="doctorForm" action="@Url.Action("Mantenimiento", "Doctor")" method="post">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="doctorModalLabel">Mantenimiento de Doctor</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
                 </div>
+
                 <div class="modal-body">
-                    <input type="hidden" id="pk_doctor" name="pk_doctor" />
+                    @Html.HiddenFor(m => m.pk_doctor)
 
-                    <div class="mb-3">
-                        <label for="nombres" class="form-label">Nombres</label>
-                        <input type="text" class="form-control" id="nombres" name="nombres" required />
-                    </div>
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label for="dni" class="form-label">DNI</label>
+                            @Html.TextBoxFor(m => m.dni, new { @class = "form-control", @required = "required" })
+                        </div>
 
-                    <div class="mb-3">
-                        <label for="apellidos" class="form-label">Apellidos</label>
-                        <input type="text" class="form-control" id="apellidos" name="apellidos" required />
-                    </div>
+                        <div class="col-md-6">
+                            <label for="nombres" class="form-label">Nombres</label>
+                            @Html.TextBoxFor(m => m.nombres, new { @class = "form-control", @required = "required" })
+                        </div>
 
-                    <div class="mb-3">
-                        <label for="especialidad" class="form-label">Especialidad</label>
-                        @Html.DropDownList("especialidad", ViewBag.Especialidades as SelectList, "Seleccione", new { @class = "form-control", @required = "required" })
-                    </div>
+                        <div class="col-md-6">
+                            <label for="apellidos" class="form-label">Apellidos</label>
+                            @Html.TextBoxFor(m => m.apellidos, new { @class = "form-control", @required = "required" })
+                        </div>
 
-                    <div class="mb-3">
-                        <label for="telefono" class="form-label">Teléfono</label>
-                        <input type="text" class="form-control" id="telefono" name="telefono" />
-                    </div>
+                        <div class="col-md-6">
+                            <label for="especialidad" class="form-label">Especialidad</label>
+                            @Html.DropDownListFor(m => m.fk_especialidad, ViewBag.Especialidades as SelectList, "Seleccione", new { @class = "form-control", @required = "required" })
+                        </div>
 
-                    <div class="mb-3">
-                        <label for="email" class="form-label">Email</label>
-                        <input type="email" class="form-control" id="email" name="email" />
-                    </div>
+                        <div class="col-md-6">
+                            <label for="telefono" class="form-label">Teléfono</label>
+                            @Html.TextBoxFor(m => m.telefono, new { @class = "form-control" })
+                        </div>
 
-                    <div class="mb-3">
-                        <label for="estado" class="form-label">Estado</label>
-                        <select class="form-select" id="estado" name="estado">
-                            <option value="Activo">Activo</option>
-                            <option value="Inactivo">Inactivo</option>
-                        </select>
+                        <div class="col-md-6">
+                            <label for="email" class="form-label">Email</label>
+                            @Html.TextBoxFor(m => m.email, new { @type = "email", @class = "form-control" })
+                        </div>
+
+                        <div class="col-md-12">
+                            <label for="direccion" class="form-label">Dirección</label>
+                            @Html.TextBoxFor(m => m.direccion, new { @class = "form-control" })
+                        </div>
+
+                        <div class="col-md-6">
+                            <label for="horarioInicio" class="form-label">Horario de Inicio</label>
+                            @Html.TextBoxFor(m => m.horarioInicio, new { @type = "time", @class = "form-control", @required = "required" })
+                        </div>
+
+                        <div class="col-md-6">
+                            <label for="horarioFin" class="form-label">Horario de Fin</label>
+                            @Html.TextBoxFor(m => m.horarioFin, new { @type = "time", @class = "form-control", @required = "required" })
+                        </div>
                     </div>
                 </div>
 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="submit" class="btn btn-primary">Guardar</button>
+                    <button type="submit" class="btn btn-primary btn-guardar">Guardar</button>
                 </div>
             </div>
         </form>
     </div>
 </div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+<script src="~/js/page/page_Doctor_Mant.js"></script>
