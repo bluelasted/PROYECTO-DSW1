@@ -1,12 +1,12 @@
 ﻿@model IEnumerable<waProyectoDSW1.Models.DoctorModel>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Doctor";
     Layout = "~/Views/Shared/_LayoutPrincipal.cshtml";
 }
 
 <!-- Page Heading -->
-<h1 class="h3 mb-2 text-gray-800">Doctor / @ViewData["Title"]</h1>
+<h1 class="h3 mb-2 text-gray-800">@ViewData["Title"] / Index</h1>
 
 <!-- DataTales Example -->
 <div class="card shadow mb-4">
@@ -16,25 +16,6 @@
     <div class="card-body">
 
         <button type="button" class="btn btn-outline-primary" id="btnNuevoDoctor"><i class="fas fa-plus"></i> Nuevo Doctor</button>
-
-        <form id="filtroFechasForm" class="row mb-3">
-            <div class="col-md-3">
-                <label for="fechaDesde" class="form-label">Desde:</label>
-                <input type="date" class="form-control" id="fechaDesde" name="fechaDesde" />
-            </div>
-            <div class="col-md-3">
-                <label for="fechaHasta" class="form-label">Hasta:</label>
-                <input type="date" class="form-control" id="fechaHasta" name="fechaHasta" />
-            </div>
-            <div class="col-md-3">
-                <label for="especialidad" class="form-label">Especialidades:</label>
-                @Html.DropDownList("especialidad", ViewBag.Especialidades as SelectList, "Seleccione", new { @class = "form-control", @required = "required" })
-            </div>
-            <div class="col-md-3 align-self-end">
-                <button type="submit" class="btn btn-primary">Filtrar</button>
-                <button type="button" id="limpiarFiltro" class="btn btn-secondary">Limpiar</button>
-            </div>
-        </form>
 
         <div class="table-responsive">
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">

@@ -1,0 +1,25 @@
+﻿@{
+    ViewData["Title"] = "Cita";
+    Layout = "~/Views/Shared/_LayoutPrincipal.cshtml";
+}
+
+<link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css" rel="stylesheet" />
+
+<!-- Page Heading -->
+<h1 class="h3 mb-2 text-gray-800">@ViewData["Title"] / Calendario </h1>
+
+<div id="calendar"></div>
+
+@section scripts {
+    <!-- Scripts Base -->
+    <script src="~/vendor/jquery/jquery.min.js"></script>
+    <script src="~/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="~/vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+    <script src="~/js/demo/datatables-demo.js"></script>
+
+    <!-- Scripts Nuevos -->
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
+    <script src="~/js/page/page_Calendario.js"></script>
+}

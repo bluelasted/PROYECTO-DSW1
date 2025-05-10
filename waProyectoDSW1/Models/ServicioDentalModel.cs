@@ -6,7 +6,7 @@
         public string nombre { get; set; }
         public string descripcion { get; set; }
         public int duracion { get; set; }
-        public double precio { get; set; }
+        public decimal precio { get; set; }
         public int fk_especialidad { get; set; }
         public bool estado { get; set; }
     }

@@ -1,0 +1,105 @@
+﻿@using waProyectoDSW1.Helpers
+@model IEnumerable<waProyectoDSW1.Models.CitaModel>
+@inject IHttpContextAccessor HttpContextAccessor
+
+@{
+    ViewData["Title"] = "Cita";
+    Layout = "~/Views/Shared/_LayoutPrincipal.cshtml";
+    var _usuario = SessionHelper.GetUser(HttpContextAccessor.HttpContext.Session);
+}
+
+<!-- Page Heading -->
+<h1 class="h3 mb-2 text-gray-800">@ViewData["Title"] / Index </h1>
+
+<!-- DataTales Example -->
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Listado de Citas</h6>
+    </div>
+    <div class="card-body">
+
+        @if (_usuario.rol != "Doctor") {
+            <button type="button" class="btn btn-outline-primary" id="btnNuevaCita"><i class="fas fa-plus"></i> Nueva Cita</button>
+        }
+
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Código</th>
+                        <th>Fecha de Cita</th>
+                        <th>Hora de Inicio</th>
+                        <th>Hora de Fin</th>
+                        <th>Nombre del Paciente</th>
+                        <th>Nombre del Doctor</th>
+                        <th>Servicio</th>
+                        <th>Estado</th>
+                        <th>Observaciones</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.pk_cita</td>
+                            <td>@item.fechaCita.ToString("dd/MM/yyyy")</td>
+                            <td>@item.horaInicio.ToString(@"hh\:mm")</td>
+                            <td>@item.horaFin.ToString(@"hh\:mm")</td>
+                            <td>@item.nombrePaciente</td>
+                            <td>@item.nombreDoctor</td>
+                            <td>@item.nombreServicio</td>
+                            <td style="background-color: @item.color; color: white"><strong>@item.nombreEstado</strong></td>
+                            <td>@item.observaciones</td>
+                            <td>
+                                @if (_usuario.rol == "Administrador")
+                                {
+                                    <button class="btn-editar btn btn-primary" data-id="@item.pk_cita" type="button">
+                                        <i class="fas fa-pen"></i>
+                                    </button>
+                                    <button class="btn-borrar btn btn-danger" data-id="@item.pk_cita" type="button">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                    <button class="btn-reporte btn btn-warning" data-id="@item.pk_cita" type="button">
+                                        <i class="fas fa-file-pdf"></i>
+                                    </button>
+                                }
+                                else if (_usuario.rol == "Recepcionista")
+                                {
+                                    <button class="btn-editar btn btn-primary" data-id="@item.pk_cita" type="button">
+                                        <i class="fas fa-pen"></i>
+                                    </button>
+                                    <button class="btn-reporte btn btn-warning" data-id="@item.pk_cita" type="button">
+                                        <i class="fas fa-file-pdf"></i>
+                                    </button>
+                                }
+                                else if (_usuario.rol == "Doctor")
+                                {
+                                    <button class="btn-reporte btn btn-warning" data-id="@item.pk_cita" type="button">
+                                        <i class="fas fa-file-pdf"></i>
+                                    </button>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div id="modalContainer"></div>
+
+@section scripts {
+    <!-- Scripts Base -->
+    <script src="~/vendor/jquery/jquery.min.js"></script>
+    <script src="~/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="~/vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+    <script src="~/js/demo/datatables-demo.js"></script>
+
+    <!-- Scripts Nuevos -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="~/js/page/page_Cita.js"></script>
+}

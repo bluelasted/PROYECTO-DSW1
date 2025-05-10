@@ -1,0 +1,79 @@
+﻿@model waProyectoDSW1.Models.CitaModel
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" />
+
+<!-- Modal -->
+<div class="modal fade" id="citaModal" tabindex="-1" aria-labelledby="citaModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <form id="citaForm" action="@Url.Action("Mantenimiento", "Cita")" method="post">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="citaModalLabel">Agendar Cita</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+
+                <div class="modal-body">
+                    @Html.HiddenFor(m => m.pk_cita)
+
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label for="fk_paciente" class="form-label">Paciente</label>
+                            @Html.DropDownListFor(m => m.fk_paciente, (SelectList)ViewBag.Pacientes, "Seleccione...", new { @class = "form-control select2" })
+                        </div>
+
+                        <div class="col-md-6">
+                            <label for="fk_doctor" class="form-label">Doctor</label>
+                            @Html.DropDownListFor(m => m.fk_doctor, (SelectList)ViewBag.Doctores, "Seleccione...", new { @class = "form-control select2" })
+                        </div>
+
+                        <div class="col-md-6">
+                            <label for="fk_servicio" class="form-label">Servicios</label>
+                            @Html.DropDownListFor(m => m.fk_servicio, (SelectList)ViewBag.Servicios, "Seleccione...", new { @class = "form-control select2" })
+                        </div>
+
+                        <div class="col-md-6">
+                            <label for="fk_estado" class="form-label">Estados</label>
+                            @Html.DropDownListFor(m => m.fk_estado, (SelectList)ViewBag.EstadosCita, "Seleccione...", new { @class = "form-control select2" })
+                        </div>
+
+                        <div class="col-md-6">
+                            <label for="fechaCita" class="form-label">Fecha Cita</label>
+                            @Html.TextBoxFor(m => m.fechaCita, new
+                                {
+                                    @type = "date",
+                                    @class = "form-control",
+                                    @required = "required",
+                                    @value = Model.fechaCita == DateTime.MinValue ? "" : Model.fechaCita.ToString("yyyy-MM-dd")
+                                })
+                        </div>
+
+                        <div class="col-md-3">
+                            <label for="horarioInicio" class="form-label">Horario de Inicio</label>
+                            @Html.TextBoxFor(m => m.horaInicio, new { @type = "time", @class = "form-control", @required = "required" })
+                        </div>
+
+                        <div class="col-md-3">
+                            <label for="horarioFin" class="form-label">Horario de Fin</label>
+                            @Html.TextBoxFor(m => m.horaFin, new { @type = "time", @class = "form-control", @required = "required" })
+                        </div>
+
+                        <div class="col-md-12">
+                            <label for="observaciones" class="form-label">Observaciones</label>
+                            @Html.TextAreaFor(m => m.observaciones, new { @class = "form-control", rows = "2" })
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary btn-guardar">Guardar</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+<script src="~/js/page/page_Cita_Mant.js"></script>
