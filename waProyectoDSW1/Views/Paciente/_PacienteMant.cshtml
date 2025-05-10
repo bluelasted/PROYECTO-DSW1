@@ -48,12 +48,12 @@
 
                         <div class="col-md-6">
                             <label for="fechaNacimiento" class="form-label">Fecha Nacimiento</label>
-                            @Html.TextBoxFor(m => m.fechaNacimiento, new { @class = "form-control" })
+                            @Html.TextBoxFor(m => m.fechaNacimiento, new { @class = "form-control", @type = "date" })
                         </div>
 
                         <div class="col-md-6">
                             <label for="fechaUltimaVisita" class="form-label">Fecha Ultima Visita</label>
-                            @Html.TextBoxFor(m => m.fechaUltimaVisita, new { @class = "form-control" })
+                            @Html.TextBoxFor(m => m.fechaUltimaVisita, new { @class = "form-control", @type = "date" })
                         </div>
 
                         <div class="col-md-3">
@@ -63,7 +63,7 @@
 
                         <div class="col-md-9">
                             <label for="alergias" class="form-label">Alergias</label>
-                            @Html.TextBoxFor(m => m.alergias, new { @class = "form-control" })
+                            @Html.TextAreaFor(m => m.alergias, new { @class = "form-control", @rows = 2 })
                         </div>
                     </div>
                 </div>

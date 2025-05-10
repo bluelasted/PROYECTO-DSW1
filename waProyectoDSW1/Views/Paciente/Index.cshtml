@@ -1,8 +1,11 @@
-﻿@model IEnumerable<waProyectoDSW1.Models.PacienteModel>
+﻿@using waProyectoDSW1.Helpers
+@model IEnumerable<waProyectoDSW1.Models.PacienteModel>
+@inject IHttpContextAccessor HttpContextAccessor
 
 @{
     ViewData["Title"] = "Paciente";
     Layout = "~/Views/Shared/_LayoutPrincipal.cshtml";
+    var _usuario = SessionHelper.GetUser(HttpContextAccessor.HttpContext.Session);
 }
 
 <!-- Page Heading -->
@@ -44,17 +47,19 @@
                             <td>@item.telefono</td>
                             <td>@item.email</td>
                             <td>@item.direccion</td>
-                            <td>@item.fechaNacimiento</td>
+                            <td>@item.fechaNacimiento.ToString("dd/MM/yyyy")</td>
                             <td>@item.genero</td>
                             <td>@item.alergias</td>
-                            <td>@item.fechaUltimaVisita</td>
+                            <td>@item.fechaUltimaVisita.ToString("dd/MM/yyyy")</td>
                             <td>
                                 <button class="btn-editar btn btn-primary" data-id="@item.pk_paciente" type="button">
                                     <i class="fas fa-pen"></i>
                                 </button>
-                                <button class="btn-borrar btn btn-danger" data-id="@item.pk_paciente" type="button">
-                                    <i class="fas fa-trash"></i>
-                                </button>
+                                @if(_usuario.rol == "Administrador") {
+                                    <button class="btn-borrar btn btn-danger" data-id="@item.pk_paciente" type="button">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                }
                             </td>
                         </tr>
                     }

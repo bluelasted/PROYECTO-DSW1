@@ -48,7 +48,15 @@ namespace waProyectoDSW1.Repositories
                                     horaInicio = (TimeSpan)reader["horaInicio"],
                                     horaFin = (TimeSpan)reader["horaFin"],
                                     observaciones = reader["observaciones"].ToString(),
-                                    fechaCita = (DateTime)reader["fechaCita"]
+                                    fechaCita = (DateTime)reader["fechaCita"],
+                                    fechaNacimiento = reader["fechaNacimiento"] != DBNull.Value ? (DateTime)reader["fechaNacimiento"] : default(DateTime),
+                                    dniPaciente = reader["cedula"].ToString(),
+                                    alergias = reader["alergias"].ToString(),
+                                    email = reader["email"].ToString(),
+                                    direccion = reader["direccion"].ToString(),
+                                    precio = reader["precio"] != DBNull.Value ? Convert.ToDecimal(reader["precio"]) : 0m,
+                                    duracion = reader["duracion"] != DBNull.Value ? Convert.ToInt32(reader["duracion"]) : 0,
+                                    descripcionEspecialidad = reader["descripcionEspecialidad"].ToString()
                                 };
 
                                 result.success = true;

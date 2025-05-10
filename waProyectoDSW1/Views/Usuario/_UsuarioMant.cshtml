@@ -1,0 +1,65 @@
+﻿@model waProyectoDSW1.Models.UsuarioModel
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" />
+
+<!-- Modal -->
+<div class="modal fade" id="usuarioModal" tabindex="-1" aria-labelledby="usuarioModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <form id="usuarioForm" action="@Url.Action("Mantenimiento", "Usuario")" method="post">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="usuarioModalLabel">Mantenimiento de Usuario</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+
+                <div class="modal-body">
+                    @Html.HiddenFor(m => m.pk_usuario)
+
+                    <div class="row g-3">
+
+                        <div class="col-md-6">
+                            <label for="nombre" class="form-label">Nombres</label>
+                            @Html.TextBoxFor(m => m.nombre, new { @class = "form-control", @required = "required" })
+                        </div>
+
+                        <div class="col-md-6">
+                            <label for="apellido" class="form-label">Apellidos</label>
+                            @Html.TextBoxFor(m => m.apellido, new { @class = "form-control", @required = "required" })
+                        </div>
+
+                        <div class="col-md-6">
+                            <label for="nombreUsuario" class="form-label">Usuario</label>
+                            @Html.TextBoxFor(m => m.nombreUsuario, new { @class = "form-control", @required = "required" })
+                        </div>
+
+                        <div class="col-md-6">
+                            <label for="password" class="form-label">Contraseña</label>
+                            @Html.TextBoxFor(m => m.password, new { @class = "form-control", @required = "required" })
+                        </div>
+
+                        <div class="col-md-6">
+                            <label for="email" class="form-label">Email</label>
+                            @Html.TextBoxFor(m => m.email, new { @type = "email", @class = "form-control" })
+                        </div>
+
+                        <div class="col-md-6">
+                            <label for="rol" class="form-label">Rol</label>
+                            @Html.DropDownListFor(m => m.rol, new SelectList(new[] {
+                            new { Value = "Administrador", Text = "Administrador" },
+                            new { Value = "Recepcionista", Text = "Recepcionista" }
+                            }, "Value", "Text"), "Seleccione un rol", new { @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary btn-guardar">Guardar</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+<script src="~/js/page/page_Usuario_Mant.js"></script>

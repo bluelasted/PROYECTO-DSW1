@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Build.Framework;
+using Rotativa.AspNetCore;
 using waProyectoDSW1.Helpers;
 using waProyectoDSW1.Interfaces;
 using waProyectoDSW1.Models;
@@ -109,6 +110,20 @@ namespace waProyectoDSW1.Controllers
             }
 
             return PartialView("_CitaMant", model);
+        }
+
+        public IActionResult GenerarPDF(int pk_cita)
+        {
+            DateTime fechaHoy = DateTime.Now;
+
+            var model = repository.Buscar_Cita(pk_cita).Data;
+
+            return new ViewAsPdf("GenerarPDF", model)
+            {
+                FileName = $"cita-{fechaHoy}.pdf",
+                PageOrientation = Rotativa.AspNetCore.Options.Orientation.Portrait,
+                PageSize = Rotativa.AspNetCore.Options.Size.A4
+            };
         }
 
         public IActionResult Index()

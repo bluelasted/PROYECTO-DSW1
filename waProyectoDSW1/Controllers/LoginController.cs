@@ -39,6 +39,10 @@ namespace waProyectoDSW1.Controllers
                 {
                     return RedirectToAction("Index", "Cita");
                 }
+                else if (usuario.rol == "Recepcionista")
+                {
+                    return RedirectToAction("Index", "Paciente");
+                }
 
                 return RedirectToAction("Index", "Home");
             }

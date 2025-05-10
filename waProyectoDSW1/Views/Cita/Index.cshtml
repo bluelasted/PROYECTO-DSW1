@@ -60,24 +60,24 @@
                                     <button class="btn-borrar btn btn-danger" data-id="@item.pk_cita" type="button">
                                         <i class="fas fa-trash"></i>
                                     </button>
-                                    <button class="btn-reporte btn btn-warning" data-id="@item.pk_cita" type="button">
+                                    <a class="btn-reporte btn btn-warning" href="@Url.Action("GenerarPDF", "Cita", new { pk_cita = item.pk_cita })">
                                         <i class="fas fa-file-pdf"></i>
-                                    </button>
+                                    </a>
                                 }
                                 else if (_usuario.rol == "Recepcionista")
                                 {
                                     <button class="btn-editar btn btn-primary" data-id="@item.pk_cita" type="button">
                                         <i class="fas fa-pen"></i>
                                     </button>
-                                    <button class="btn-reporte btn btn-warning" data-id="@item.pk_cita" type="button">
+                                    <a class="btn-reporte btn btn-warning" href="@Url.Action("GenerarPDF", "Cita", new { pk_cita = item.pk_cita })">
                                         <i class="fas fa-file-pdf"></i>
-                                    </button>
+                                    </a>
                                 }
                                 else if (_usuario.rol == "Doctor")
                                 {
-                                    <button class="btn-reporte btn btn-warning" data-id="@item.pk_cita" type="button">
+                                    <a class="btn-reporte btn btn-warning" href="@Url.Action("GenerarPDF", "Cita", new { pk_cita = item.pk_cita })">
                                         <i class="fas fa-file-pdf"></i>
-                                    </button>
+                                    </a>
                                 }
                             </td>
                         </tr>

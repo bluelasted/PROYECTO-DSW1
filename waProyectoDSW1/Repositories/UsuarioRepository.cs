@@ -15,6 +15,142 @@ namespace waProyectoDSW1.Repositories
                 .Build().GetConnectionString("cn");
         }
 
+        public ResultModel<UsuarioModel> Buscar_Usuario(int pk_usuario)
+        {
+            var result = new ResultModel<UsuarioModel>();
+
+            try
+            {
+                using (SqlConnection cn = new SqlConnection(connectionString))
+                {
+                    cn.Open();
+                    using (SqlCommand cmd = new SqlCommand("SP_BUSCAR_USUARIO", cn))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("@pk_usuario", pk_usuario);
+
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                var model = new UsuarioModel
+                                {
+                                    pk_usuario = Convert.ToInt32(reader["pk_usuario"]),
+                                    nombre = reader["nombre"].ToString(),
+                                    apellido = reader["apellido"].ToString(),
+                                    email = reader["email"].ToString(),
+                                    nombreUsuario = reader["nombreUsuario"].ToString(),
+                                    password = reader["password"].ToString(),
+                                    rol = reader["rol"].ToString()
+                                };
+
+                                result.success = true;
+                                result.Data = model;
+                            }
+                            else
+                            {
+                                result.success = false;
+                                result.Message = "Usuario no encontrado.";
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                result.success = false;
+                result.Message = "Usuario al buscar el doctor: " + ex.Message;
+            }
+
+            return result;
+        }
+
+        public ResultModel<IEnumerable<UsuarioModel>> Listado_Usuario()
+        {
+            var result = new ResultModel<IEnumerable<UsuarioModel>>();
+            var lista = new List<UsuarioModel>();
+
+            try
+            {
+                using (SqlConnection cn = new SqlConnection(connectionString))
+                {
+                    cn.Open();
+                    using (SqlCommand cmd = new SqlCommand("SP_USUARIO_LISTADO", cn))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                var model = new UsuarioModel();
+                                {
+                                    model.pk_usuario = Convert.ToInt32(reader["pk_usuario"]);
+                                    model.nombre = reader["nombre"].ToString();
+                                    model.apellido = reader["apellido"].ToString();
+                                    model.nombreUsuario = reader["nombreUsuario"].ToString();
+                                    model.email = reader["email"].ToString();
+                                    model.password = reader["password"].ToString();
+                                    model.rol = reader["rol"].ToString();
+                                };
+
+                                lista.Add(model);
+                            }
+                        }
+                    }
+                }
+
+                result.success = true;
+                result.Data = lista;
+            }
+            catch (Exception ex)
+            {
+                result.success = false;
+                result.Message = ex.Message;
+                result.Data = null;
+            }
+
+            return result;
+        }
+
+        public ResultModel<object> Usuario_Mant(UsuarioModel model, int op)
+        {
+            var result = new ResultModel<object>();
+
+            try
+            {
+                using (SqlConnection cn = new SqlConnection(connectionString))
+                {
+                    cn.Open();
+                    using (SqlCommand cmd = new SqlCommand("SP_USUARIO_MANT", cn))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+
+                        cmd.Parameters.AddWithValue("@op", op);
+                        cmd.Parameters.AddWithValue("@pk_usuario", model.pk_usuario);
+                        cmd.Parameters.AddWithValue("@nombre", model.nombre);
+                        cmd.Parameters.AddWithValue("@apellido", model.apellido);
+                        cmd.Parameters.AddWithValue("@nombreUsuario", model.nombreUsuario);
+                        cmd.Parameters.AddWithValue("@email", model.email);
+                        cmd.Parameters.AddWithValue("@password", model.password);
+                        cmd.Parameters.AddWithValue("@rol", model.rol);
+
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+
+                result.success = true;
+                result.Message = "Operación realizada correctamente.";
+            }
+            catch (Exception ex)
+            {
+                result.success = false;
+                result.Message = "Error: " + ex.Message;
+            }
+
+            return result;
+        }
+
         public ResultModel<UsuarioModel> ValidarUsuario(string usuario, string password)
         {
             var result = new ResultModel<UsuarioModel>();
